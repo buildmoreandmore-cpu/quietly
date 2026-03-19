@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0d0d0d;
+  --foreground: #e8e8e8;
+  --accent: #39ff14;
+  --accent-dim: #2bcc10;
+  --surface: #1a1a1a;
+  --surface-hover: #242424;
+  --border-color: #2a2a2a;
+  --muted: #888888;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Markdown in chat */
+.chat-markdown p {
+  margin-bottom: 0.5rem;
+}
+.chat-markdown ul,
+.chat-markdown ol {
+  margin-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.chat-markdown li {
+  margin-bottom: 0.25rem;
+}
+.chat-markdown code {
+  background: var(--surface);
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+.chat-markdown pre {
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+.chat-markdown blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  margin: 0.75rem 0;
+  color: var(--muted);
+}
+.chat-markdown h1, .chat-markdown h2, .chat-markdown h3 {
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.chat-markdown a {
+  color: var(--accent);
+  text-decoration: underline;
+}
