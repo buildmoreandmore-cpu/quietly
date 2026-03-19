@@ -3,8 +3,17 @@ import { buildSystemPrompt, streamChat } from "@/lib/anthropic";
 import { searchJobs, parseJobQuery } from "@/lib/jobs";
 import { ParsedResume } from "@/lib/types";
 
+export const maxDuration = 30;
+
 export async function POST(req: NextRequest) {
   try {
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return Response.json(
+        { error: "ANTHROPIC_API_KEY not configured" },
+        { status: 500 }
+      );
+    }
+
     const body = await req.json();
     const {
       message,

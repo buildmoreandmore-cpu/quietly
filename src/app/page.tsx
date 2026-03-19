@@ -48,10 +48,10 @@ export default function LandingPage() {
           <span className="text-accent">Q</span>uietly
         </div>
         <Link
-          href="/app"
+          href="/auth/login"
           className="text-sm bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent-dim transition-colors font-medium"
         >
-          Launch App
+          Sign in
         </Link>
       </nav>
 
@@ -72,10 +72,16 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              href="/app"
+              href="/auth/signup"
               className="bg-accent text-white px-8 py-3 rounded-xl text-sm font-semibold hover:bg-accent-dim transition-colors"
             >
-              Start Searching
+              Get Started Free
+            </Link>
+            <Link
+              href="/auth/login"
+              className="border border-border text-foreground px-8 py-3 rounded-xl text-sm font-medium hover:bg-surface transition-colors"
+            >
+              Sign in
             </Link>
           </div>
 

@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { useQuietlyStore } from "@/store/quietly";
 import { useResume } from "@/hooks/useResume";
+import { createSupabaseBrowser } from "@/lib/supabase";
 
 export default function OnboardingModal() {
   const { showOnboarding, setShowOnboarding, addBlockedEmployer, setSalaryFloor, addMessage } = useQuietlyStore();
@@ -37,8 +38,27 @@ export default function OnboardingModal() {
     }
   };
 
+  const persistOnboarding = async (blocked: string[], salaryVal: string) => {
+    try {
+      const supabase = createSupabaseBrowser();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const salaryNum = salaryVal ? parseInt(salaryVal.replace(/\D/g, "")) || 0 : 0;
+        await supabase.from("profiles").update({
+          blocked_employers: blocked,
+          salary_floor: salaryNum,
+          onboarded: true,
+          updated_at: new Date().toISOString(),
+        }).eq("id", user.id);
+      }
+    } catch (err) {
+      console.error("Failed to persist onboarding:", err);
+    }
+  };
+
   const dismiss = () => {
     setShowOnboarding(false);
+    persistOnboarding([], "");
     addMessage({
       id: crypto.randomUUID(),
       role: "assistant",
@@ -49,14 +69,16 @@ export default function OnboardingModal() {
 
   const finish = () => {
     blockedList.forEach(addBlockedEmployer);
-    if (salary) setSalaryFloor(parseInt(salary.replace(/\D/g, "")) || 0);
+    const salaryNum = salary ? parseInt(salary.replace(/\D/g, "")) || 0 : 0;
+    if (salaryNum) setSalaryFloor(salaryNum);
     setShowOnboarding(false);
+    persistOnboarding(blockedList, salary);
 
     addMessage({
       id: crypto.randomUUID(),
       role: "assistant",
       content: resumeName
-        ? `Welcome, **${resumeName}**! Your resume is loaded${blockedList.length > 0 ? `, ${blockedList.length} employer(s) blocked` : ""}${salary ? `, salary floor set to $${parseInt(salary.replace(/\D/g, "")).toLocaleString()}` : ""}. What kind of roles are you looking for?`
+        ? `Welcome, **${resumeName}**! Your resume is loaded${blockedList.length > 0 ? `, ${blockedList.length} employer(s) blocked` : ""}${salaryNum ? `, salary floor set to $${salaryNum.toLocaleString()}` : ""}. What kind of roles are you looking for?`
         : "Welcome to Quietly! Upload your resume anytime to get personalized results. What kind of roles are you looking for?",
       timestamp: new Date().toISOString(),
     });
