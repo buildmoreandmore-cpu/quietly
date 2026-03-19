@@ -40,7 +40,7 @@ export default function Message({ message }: Props) {
       <div
         className={`max-w-[85%] rounded-2xl px-4 py-3 ${
           isUser
-            ? "bg-accent/15 text-foreground"
+            ? "bg-accent text-white"
             : "bg-surface text-foreground"
         }`}
       >

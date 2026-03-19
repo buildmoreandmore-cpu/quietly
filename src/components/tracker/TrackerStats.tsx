@@ -3,10 +3,10 @@
 import { useTracker } from "@/hooks/useTracker";
 
 const STAT_CONFIG = [
-  { key: "saved", label: "Saved", color: "text-blue-400" },
-  { key: "applied", label: "Applied", color: "text-yellow-400" },
-  { key: "screening", label: "Screen", color: "text-orange-400" },
-  { key: "interview", label: "Interview", color: "text-purple-400" },
+  { key: "saved", label: "Saved", color: "text-blue-500" },
+  { key: "applied", label: "Applied", color: "text-amber-500" },
+  { key: "screening", label: "Screen", color: "text-orange-500" },
+  { key: "interview", label: "Interview", color: "text-purple-500" },
   { key: "offer", label: "Offer", color: "text-accent" },
 ] as const;
 

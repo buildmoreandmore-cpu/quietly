@@ -15,7 +15,7 @@ export default function QuickChips() {
         <button
           key={chip.label}
           onClick={() => sendMessage(chip.prompt)}
-          className="text-xs px-3 py-1.5 rounded-full border border-accent/30 text-accent hover:bg-accent/10 transition-colors"
+          className="text-xs px-3 py-1.5 rounded-full border border-accent/30 text-accent hover:bg-accent/5 transition-colors"
         >
           {chip.label}
         </button>
