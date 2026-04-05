@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 
 const NOTIFICATIONS = [
-  { name: "Sarah Chen", role: "Engineering Manager", company: "Stripe", score: 92 },
-  { name: "James Park", role: "VP Engineering", company: "Linear", score: 88 },
-  { name: "Priya Sharma", role: "Head of Product", company: "Vercel", score: 85 },
+  { name: "Sarah Chen", role: "Hiring Manager", company: "JPMorgan Chase", score: 92 },
+  { name: "James Park", role: "Regional Director", company: "Kaiser Permanente", score: 88 },
+  { name: "Priya Sharma", role: "VP of Operations", company: "Deloitte", score: 85 },
+  { name: "Marcus Rivera", role: "Branch Manager", company: "Wells Fargo", score: 81 },
+  { name: "Dana Okafor", role: "Head of People", company: "HubSpot", score: 90 },
 ];
 
 export default function HeroNotification() {

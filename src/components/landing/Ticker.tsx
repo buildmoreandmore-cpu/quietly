@@ -1,18 +1,26 @@
 "use client";
 
 const ROLES = [
-  "Senior Frontend Engineer",
-  "Staff Product Engineer",
-  "VP of Engineering",
-  "Principal Backend Engineer",
-  "Head of Product",
-  "Engineering Manager",
-  "Senior Full-Stack Developer",
-  "Staff Software Engineer",
-  "Director of Engineering",
-  "Senior DevOps Engineer",
-  "Lead Mobile Engineer",
-  "Principal Architect",
+  "Financial Analyst",
+  "Registered Nurse",
+  "Operations Manager",
+  "Marketing Director",
+  "Software Engineer",
+  "Executive Assistant",
+  "Branch Manager",
+  "Project Coordinator",
+  "HR Business Partner",
+  "Account Executive",
+  "Supply Chain Manager",
+  "Clinical Research Associate",
+  "Senior Accountant",
+  "UX Designer",
+  "Compliance Officer",
+  "Logistics Coordinator",
+  "Data Analyst",
+  "Office Manager",
+  "Sales Director",
+  "Physical Therapist",
 ];
 
 export default function Ticker() {

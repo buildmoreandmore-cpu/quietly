@@ -36,25 +36,25 @@ type StageId = (typeof STAGES)[number]["id"];
 /* ── Mock data ─────────────────────────────────────────────── */
 
 const MOCK_MATCHES = [
-  { company: "Stripe", title: "Senior Frontend Engineer", score: 92, grade: "A" },
-  { company: "Linear", title: "Staff Product Engineer", score: 88, grade: "A" },
-  { company: "Vercel", title: "Senior Full-Stack Engineer", score: 81, grade: "B" },
+  { company: "JPMorgan Chase", title: "Senior Financial Analyst", score: 92, grade: "A" },
+  { company: "Kaiser Permanente", title: "Operations Manager", score: 88, grade: "A" },
+  { company: "Deloitte", title: "Project Coordinator", score: 81, grade: "B" },
 ];
 
-const MOCK_SKILLS = ["React", "TypeScript", "Node.js", "PostgreSQL", "AWS"];
+const MOCK_SKILLS = ["Financial Modeling", "Team Leadership", "Project Mgmt", "Excel", "Salesforce"];
 
 const MOCK_OUTREACH = {
-  to: "Sarah Chen — Engineering Manager, Stripe",
-  subject: "Exceptional full-stack candidate — 92% match",
+  to: "Sarah Chen — Hiring Manager, JPMorgan Chase",
+  subject: "Strong candidate for Senior Financial Analyst — 92% match",
   lines: [
     "Hi Sarah,",
     "",
-    "I'm reaching out on behalf of a senior engineer whose",
+    "I'm reaching out on behalf of a candidate whose",
     "background is a strong fit for your open role.",
     "",
-    "They bring 6+ years of React/TypeScript experience,",
-    "deep PostgreSQL knowledge, and a track record of",
-    "shipping high-impact product features at scale.",
+    "They bring 8+ years of financial analysis experience,",
+    "advanced modeling skills, and a track record of",
+    "driving strategic decisions at the executive level.",
     "",
     "Would you be open to a confidential introduction?",
   ],
@@ -255,10 +255,10 @@ export default function ProcessDemo() {
 
               <div className={`w-full max-w-sm grid grid-cols-2 gap-2 transition-all duration-500 ${uploadPhase === 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
                 {[
-                  { label: "Target", value: "Sr. Frontend, Staff Eng" },
+                  { label: "Target", value: "Financial Analyst, Ops Mgr" },
                   { label: "Location", value: "Remote / NYC" },
-                  { label: "Floor", value: "$180k+" },
-                  { label: "Blocked", value: "Meta, Oracle" },
+                  { label: "Floor", value: "$95k+" },
+                  { label: "Blocked", value: "Wells Fargo, Citi" },
                 ].map((pref) => (
                   <div key={pref.label} className="bg-gray-50 border border-gray-100 rounded-lg px-3 py-2">
                     <div className="text-[9px] text-gray-400 uppercase tracking-wider mb-0.5">{pref.label}</div>
