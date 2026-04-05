@@ -99,22 +99,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── Numbers Strip ────────────────────────────── */}
-        <section className="border-y border-border bg-surface/50">
-          <div className="max-w-5xl mx-auto px-6 py-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
-            {[
-              { value: "0", label: "applications you write" },
-              { value: "100%", label: "invisible to employers" },
-              { value: "75%+", label: "minimum match score" },
-              { value: "$20", label: "per month — cancel anytime" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-2xl sm:text-3xl font-extrabold gradient-text mb-1">{stat.value}</div>
-                <div className="text-xs text-muted uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* ── Live Demo ────────────────────────────────── */}
         <section id="demo" className="px-6 py-28">
