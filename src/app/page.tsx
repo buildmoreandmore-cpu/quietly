@@ -143,87 +143,28 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── What You Stop Doing (pricing as contrast) ─ */}
+        {/* ── Pricing ─────────────────────────────────── */}
         <section className="px-6 py-28 bg-surface/50">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-5xl font-extrabold mb-4 text-foreground">
-                What <span className="gradient-text">$20/mo</span> replaces
-              </h2>
-              <p className="text-muted text-lg max-w-lg mx-auto">
-                This is what your week used to look like. And what it looks like now.
-              </p>
-            </div>
+          <div className="max-w-xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-5xl font-extrabold mb-4 text-foreground">
+              <span className="gradient-text">$20/mo.</span> Cancel anytime.
+            </h2>
+            <p className="text-muted text-lg mb-10 max-w-md mx-auto">
+              No contracts. No placement fees. Just nightly scans, personalized
+              outreach, and notifications when hiring managers respond.
+            </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto mb-16">
-              {/* Before column */}
-              <div className="bg-white border border-border rounded-2xl p-7">
-                <div className="text-xs font-bold text-red-500/80 uppercase tracking-wider mb-5">Before Quietly</div>
-                <div className="space-y-4">
-                  {[
-                    "Scrolling job boards after work",
-                    "Tailoring cover letters nobody reads",
-                    "Refreshing your inbox for recruiter replies",
-                    "Updating LinkedIn to \"signal\" availability",
-                    "Taking calls from recruiters pitching bad fits",
-                    "Wondering if your current boss noticed",
-                  ].map((item) => (
-                    <div key={item} className="flex items-start gap-3">
-                      <svg className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                      </svg>
-                      <span className="text-sm text-muted">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <Link
+              href="/auth/signup"
+              className="group btn-shimmer inline-flex items-center bg-gradient-to-r from-accent to-purple-500 text-white px-12 py-4 rounded-2xl text-sm font-bold hover:shadow-lg hover:shadow-accent/20 transition-all hover:-translate-y-0.5"
+            >
+              Get started
+              <ArrowRightIcon />
+            </Link>
 
-              {/* After column */}
-              <div className="bg-white border-2 border-accent/20 rounded-2xl p-7 shadow-md shadow-accent/5">
-                <div className="text-xs font-bold text-accent uppercase tracking-wider mb-5">With Quietly</div>
-                <div className="space-y-4">
-                  {[
-                    "You upload your resume once",
-                    "We scan thousands of roles every night",
-                    "Personalized outreach goes out anonymously",
-                    "You stay 100% invisible the entire time",
-                    "You only hear from us when someone responds",
-                    "You decide if you want the intro — or pass",
-                  ].map((item) => (
-                    <div key={item} className="flex items-start gap-3">
-                      <svg className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 6L9 17l-5-5" />
-                      </svg>
-                      <span className="text-sm text-foreground">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Price anchor */}
-            <div className="max-w-md mx-auto text-center bg-white border-2 border-accent/20 rounded-3xl p-8 shadow-lg shadow-accent/5">
-              <div className="flex items-baseline justify-center gap-1 mb-2">
-                <span className="text-5xl font-extrabold text-foreground">$20</span>
-                <span className="text-muted text-lg">/mo</span>
-              </div>
-              <p className="text-sm text-muted mb-6">
-                Cancel anytime. No contracts. No placement fees.
-              </p>
-
-              <Link
-                href="/auth/signup"
-                className="group btn-shimmer block w-full text-center bg-gradient-to-r from-accent to-purple-500 text-white py-4 rounded-2xl text-sm font-bold hover:shadow-lg hover:shadow-accent/20 transition-all hover:-translate-y-0.5"
-              >
-                Get started
-                <ArrowRightIcon />
-              </Link>
-
-              <p className="text-xs text-muted text-center mt-4">
-                2 minutes to set up. First matches within 24 hours.
-              </p>
-            </div>
+            <p className="text-xs text-muted mt-4">
+              2 minutes to set up. First matches within 24 hours.
+            </p>
           </div>
         </section>
 
@@ -260,7 +201,7 @@ export default function LandingPage() {
             <span className="text-sm font-bold text-foreground">Quietly</span>
           </div>
           <p className="text-xs text-muted">
-            Built in Atlanta by Martin Francis.
+            Your career on autopilot. No data shared. Ever.
           </p>
           <div className="flex gap-6 text-xs text-muted">
             <Link href="/auth/login" className="hover:text-foreground transition-colors">
