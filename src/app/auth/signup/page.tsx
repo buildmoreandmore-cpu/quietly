@@ -57,8 +57,15 @@ export default function SignUpPage() {
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Link href="/" className="text-2xl font-semibold tracking-tight text-foreground">
-            <span className="text-accent">Q</span>uietly
+          <Link href="/" className="inline-flex items-center gap-2.5">
+            <div className="w-8 h-8 bg-foreground rounded-xl flex items-center justify-center">
+              <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2a8 8 0 00-8 8v12l3-3 2 2 3-3 3 3 2-2 3 3V10a8 8 0 00-8-8z" />
+                <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none" />
+                <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none" />
+              </svg>
+            </div>
+            <span className="text-2xl font-serif tracking-tight text-foreground">Quietly</span>
           </Link>
           <p className="text-sm text-muted mt-2">Create your private account</p>
         </div>
