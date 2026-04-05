@@ -1,56 +1,65 @@
 "use client";
 
 import { create } from "zustand";
-import { ChatMessage, ParsedResume, Application, Chip, Session } from "@/lib/types";
+import { ParsedResume, Match, OutreachEntry, DashboardStats } from "@/lib/types";
 
 interface QuietlyState {
-  // Session
-  session: Session | null;
-  setSession: (session: Session) => void;
+  // Profile
+  userId: string | null;
+  setUserId: (id: string) => void;
+  fullName: string;
+  setFullName: (name: string) => void;
 
   // Resume
   resume: ParsedResume | null;
   setResume: (resume: ParsedResume) => void;
 
-  // Blocked employers
+  // Preferences
+  targetTitles: string[];
+  setTargetTitles: (titles: string[]) => void;
+  targetLocations: string[];
+  setTargetLocations: (locations: string[]) => void;
   blockedEmployers: string[];
   addBlockedEmployer: (name: string) => void;
   removeBlockedEmployer: (name: string) => void;
-
-  // Salary floor
+  setBlockedEmployers: (employers: string[]) => void;
   salaryFloor: number;
   setSalaryFloor: (floor: number) => void;
+  jobType: string;
+  setJobType: (type: string) => void;
+  isActive: boolean;
+  setIsActive: (active: boolean) => void;
 
-  // Chat messages
-  messages: ChatMessage[];
-  addMessage: (msg: ChatMessage) => void;
-  updateLastAssistantMessage: (content: string) => void;
+  // Matches
+  matches: Match[];
+  setMatches: (matches: Match[]) => void;
 
-  // Tracker
-  applications: Application[];
-  setApplications: (apps: Application[]) => void;
-  addApplication: (app: Application) => void;
-  updateApplication: (id: string, updates: Partial<Application>) => void;
-  removeApplication: (id: string) => void;
+  // Outreach
+  outreach: OutreachEntry[];
+  setOutreach: (entries: OutreachEntry[]) => void;
+
+  // Stats
+  stats: DashboardStats;
+  setStats: (stats: DashboardStats) => void;
 
   // UI
-  isStreaming: boolean;
-  setIsStreaming: (v: boolean) => void;
   showOnboarding: boolean;
   setShowOnboarding: (v: boolean) => void;
-  mobileView: "chat" | "tracker";
-  setMobileView: (v: "chat" | "tracker") => void;
-  chips: Chip[];
-  setChips: (chips: Chip[]) => void;
 }
 
 export const useQuietlyStore = create<QuietlyState>((set) => ({
-  session: null,
-  setSession: (session) => set({ session }),
+  userId: null,
+  setUserId: (userId) => set({ userId }),
+  fullName: "",
+  setFullName: (fullName) => set({ fullName }),
 
   resume: null,
   setResume: (resume) => set({ resume }),
 
+  targetTitles: [],
+  setTargetTitles: (targetTitles) => set({ targetTitles }),
+  targetLocations: [],
+  setTargetLocations: (targetLocations) => set({ targetLocations }),
   blockedEmployers: [],
   addBlockedEmployer: (name) =>
     set((s) => ({ blockedEmployers: [...s.blockedEmployers, name] })),
@@ -58,45 +67,23 @@ export const useQuietlyStore = create<QuietlyState>((set) => ({
     set((s) => ({
       blockedEmployers: s.blockedEmployers.filter((e) => e !== name),
     })),
-
+  setBlockedEmployers: (blockedEmployers) => set({ blockedEmployers }),
   salaryFloor: 0,
   setSalaryFloor: (salaryFloor) => set({ salaryFloor }),
+  jobType: "full-time",
+  setJobType: (jobType) => set({ jobType }),
+  isActive: true,
+  setIsActive: (isActive) => set({ isActive }),
 
-  messages: [],
-  addMessage: (msg) => set((s) => ({ messages: [...s.messages, msg] })),
-  updateLastAssistantMessage: (content) =>
-    set((s) => {
-      const msgs = [...s.messages];
-      for (let i = msgs.length - 1; i >= 0; i--) {
-        if (msgs[i].role === "assistant") {
-          msgs[i] = { ...msgs[i], content };
-          break;
-        }
-      }
-      return { messages: msgs };
-    }),
+  matches: [],
+  setMatches: (matches) => set({ matches }),
 
-  applications: [],
-  setApplications: (applications) => set({ applications }),
-  addApplication: (app) =>
-    set((s) => ({ applications: [app, ...s.applications] })),
-  updateApplication: (id, updates) =>
-    set((s) => ({
-      applications: s.applications.map((a) =>
-        a.id === id ? { ...a, ...updates, updatedAt: new Date().toISOString() } : a
-      ),
-    })),
-  removeApplication: (id) =>
-    set((s) => ({
-      applications: s.applications.filter((a) => a.id !== id),
-    })),
+  outreach: [],
+  setOutreach: (outreach) => set({ outreach }),
 
-  isStreaming: false,
-  setIsStreaming: (isStreaming) => set({ isStreaming }),
+  stats: { totalMatches: 0, newMatches: 0, outreachSent: 0, responses: 0, introsMade: 0 },
+  setStats: (stats) => set({ stats }),
+
   showOnboarding: true,
   setShowOnboarding: (showOnboarding) => set({ showOnboarding }),
-  mobileView: "chat",
-  setMobileView: (mobileView) => set({ mobileView }),
-  chips: [],
-  setChips: (chips) => set({ chips }),
 }));

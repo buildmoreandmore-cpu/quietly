@@ -5,8 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Quietly — Private Job Search",
-  description: "AI-powered job search without the public exposure. Find roles, get comp data, write cover letters, and prep for interviews — all privately.",
+  title: "Quietly — Your Career on Autopilot",
+  description:
+    "An AI recruiting agency that works for you. Join the pool, stay invisible, and get notified when hiring managers want to talk.",
 };
 
 export default function RootLayout({
@@ -16,9 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        {children}
-      </body>
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );
 }

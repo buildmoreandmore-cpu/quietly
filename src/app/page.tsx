@@ -1,17 +1,17 @@
 import Link from "next/link";
 
-function SearchIcon() {
+function ShieldIcon() {
   return (
     <svg className="w-7 h-7 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
     </svg>
   );
 }
 
-function DollarIcon() {
+function BoltIcon() {
   return (
     <svg className="w-7 h-7 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
     </svg>
   );
 }
@@ -34,10 +34,17 @@ function ChartIcon() {
 
 export default function LandingPage() {
   const features = [
-    { icon: <SearchIcon />, title: "Smart Search", desc: "AI finds roles that match your skills" },
-    { icon: <DollarIcon />, title: "Comp Intel", desc: "Know what to ask for" },
-    { icon: <EnvelopeIcon />, title: "Cover Letters", desc: "Tailored to each role" },
-    { icon: <ChartIcon />, title: "Job Tracker", desc: "Track every application" },
+    { icon: <ShieldIcon />, title: "Stay invisible", desc: "You never appear on any job board. We work for you in the background." },
+    { icon: <BoltIcon />, title: "Matched nightly", desc: "Our engine scans live listings every night and finds roles that fit." },
+    { icon: <EnvelopeIcon />, title: "Outreach on autopilot", desc: "We contact hiring managers on your behalf. You only engage when they respond." },
+    { icon: <ChartIcon />, title: "Track everything", desc: "See which roles were found, which managers were contacted, and who replied." },
+  ];
+
+  const steps = [
+    { num: "01", title: "Join the pool", desc: "Upload your resume and set your preferences. Takes 2 minutes." },
+    { num: "02", title: "We search for you", desc: "Every night, our engine finds roles that match your background at 75%+ fit." },
+    { num: "03", title: "We reach out", desc: "For every strong match, we generate a personalized message to the hiring manager." },
+    { num: "04", title: "You get notified", desc: "When a hiring manager responds, you decide if you want an intro. No pressure." },
   ];
 
   return (
@@ -47,61 +54,116 @@ export default function LandingPage() {
         <div className="text-xl font-semibold tracking-tight">
           <span className="text-accent">Q</span>uietly
         </div>
-        <Link
-          href="/auth/login"
-          className="text-sm bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent-dim transition-colors font-medium"
-        >
-          Sign in
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/auth/login"
+            className="text-sm text-muted hover:text-foreground transition-colors font-medium"
+          >
+            Sign in
+          </Link>
+          <Link
+            href="/auth/signup"
+            className="text-sm bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent-dim transition-colors font-medium"
+          >
+            Join the pool
+          </Link>
+        </div>
       </nav>
 
       {/* Hero */}
-      <main className="flex-1 flex items-center justify-center px-6">
-        <div className="max-w-2xl text-center">
-          <div className="inline-block text-xs bg-accent/10 text-accent px-3 py-1 rounded-full mb-6 font-medium">
-            No LinkedIn. No public exposure.
+      <main className="flex-1">
+        <section className="flex items-center justify-center px-6 py-20">
+          <div className="max-w-2xl text-center">
+            <div className="inline-block text-xs bg-accent/10 text-accent px-3 py-1 rounded-full mb-6 font-medium">
+              An AI recruiting agency that works for you
+            </div>
+            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight mb-6 leading-tight text-foreground">
+              Your career,{" "}
+              <span className="text-accent">on autopilot</span>.
+            </h1>
+            <p className="text-lg text-muted mb-4 max-w-lg mx-auto leading-relaxed">
+              Join the pool. Stay invisible. We find roles that fit you,
+              contact hiring managers on your behalf, and notify you when
+              someone wants to talk.
+            </p>
+            <p className="text-sm text-muted mb-8">
+              No employer signups. No marketplace. Just results.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href="/auth/signup"
+                className="bg-accent text-white px-8 py-3 rounded-xl text-sm font-semibold hover:bg-accent-dim transition-colors"
+              >
+                Join Free
+              </Link>
+              <a
+                href="#how-it-works"
+                className="border border-border text-foreground px-8 py-3 rounded-xl text-sm font-medium hover:bg-surface transition-colors"
+              >
+                How it works
+              </a>
+            </div>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight mb-6 leading-tight text-foreground">
-            Job search,{" "}
-            <span className="text-accent">quietly</span>.
-          </h1>
-          <p className="text-lg text-muted mb-8 max-w-lg mx-auto leading-relaxed">
-            Upload your resume. Chat with AI. Find roles, get comp data, write
-            cover letters, and prep for interviews — all in one private
-            conversation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        </section>
+
+        {/* Features */}
+        <section className="px-6 pb-20">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {features.map((f) => (
+              <div key={f.title} className="bg-surface border border-border rounded-xl p-5 text-left">
+                <div className="mb-3">{f.icon}</div>
+                <div className="text-sm font-semibold mb-1 text-foreground">{f.title}</div>
+                <div className="text-xs text-muted leading-relaxed">{f.desc}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section id="how-it-works" className="px-6 py-20 bg-surface">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-center mb-12 text-foreground">How it works</h2>
+            <div className="space-y-8">
+              {steps.map((step) => (
+                <div key={step.num} className="flex gap-4">
+                  <div className="w-10 h-10 bg-accent text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                    {step.num}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground">{step.title}</h3>
+                    <p className="text-sm text-muted mt-1">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="px-6 py-20">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-2xl font-bold mb-4 text-foreground">
+              Free to join. We only win when you win.
+            </h2>
+            <p className="text-muted mb-8">
+              No subscription required. We take a placement fee only when an
+              intro leads to a hire. Upgrade to Priority for faster matching
+              and more outreach.
+            </p>
             <Link
               href="/auth/signup"
               className="bg-accent text-white px-8 py-3 rounded-xl text-sm font-semibold hover:bg-accent-dim transition-colors"
             >
-              Get Started Free
-            </Link>
-            <Link
-              href="/auth/login"
-              className="border border-border text-foreground px-8 py-3 rounded-xl text-sm font-medium hover:bg-surface transition-colors"
-            >
-              Sign in
+              Join the pool
             </Link>
           </div>
-
-          {/* Features grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16">
-            {features.map((f) => (
-              <div key={f.title} className="bg-surface border border-border rounded-xl p-4 text-left">
-                <div className="mb-3">{f.icon}</div>
-                <div className="text-sm font-medium mb-1 text-foreground">{f.title}</div>
-                <div className="text-xs text-muted">{f.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+        </section>
       </main>
 
       {/* Footer */}
-      <footer className="p-6 text-center">
+      <footer className="p-6 text-center border-t border-border">
         <p className="text-xs text-muted">
-          Quietly &mdash; Your career, your terms. No data shared. Ever.
+          Quietly &mdash; Your career on autopilot. No data shared. Ever.
         </p>
       </footer>
     </div>

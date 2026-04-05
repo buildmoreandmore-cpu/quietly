@@ -1,13 +1,13 @@
 "use client";
 
-import AppShell from "@/components/layout/AppShell";
 import OnboardingModal from "@/components/onboarding/OnboardingModal";
+import Dashboard from "@/components/dashboard/Dashboard";
 
 export default function AppPage() {
   return (
     <>
       <OnboardingModal />
-      <AppShell />
+      <Dashboard />
     </>
   );
 }

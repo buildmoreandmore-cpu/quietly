@@ -20,67 +20,78 @@ export interface ParsedResume {
   licenses: string[];
 }
 
-export type AppStatus =
-  | "saved"
-  | "applied"
-  | "screening"
-  | "interview"
-  | "offer"
-  | "rejected"
-  | "withdrawn";
+export type MatchStatus =
+  | "new"
+  | "outreach_sent"
+  | "responded"
+  | "intro_made"
+  | "passed"
+  | "expired";
 
-export interface Job {
+export type OutreachStatus =
+  | "draft"
+  | "sent"
+  | "opened"
+  | "responded"
+  | "intro_made"
+  | "no_response";
+
+export interface Match {
   id: string;
+  userId: string;
   title: string;
   company: string;
   location: string;
-  salary: string;
+  jobType: string;
+  salaryRange: string;
   url: string;
+  postedDate: string;
+  matchScore: number;
+  matchGrade: string;
+  whyItFits: string;
+  oneConcern: string;
   source: string;
-  posted: string;
-  description: string;
-  score: number;
+  status: MatchStatus;
+  discoveredAt: string;
 }
 
-export interface Application {
+export interface OutreachEntry {
   id: string;
-  job: Job;
-  status: AppStatus;
-  notes: string;
-  appliedAt: string;
-  updatedAt: string;
+  matchId: string;
+  userId: string;
+  hiringManager: string;
+  channel: string;
+  variant: string;
+  subject: string;
+  messageBody: string;
+  sentAt: string | null;
+  respondedAt: string | null;
+  responseSummary: string | null;
+  status: OutreachStatus;
+  createdAt: string;
 }
 
-export interface Chip {
-  label: string;
-  prompt: string;
-}
-
-export interface ChatMessage {
+export interface CandidateProfile {
   id: string;
-  role: "user" | "assistant";
-  content: string;
-  timestamp: string;
-  jobs?: Job[];
-  comp?: CompData;
-}
-
-export interface CompData {
-  role: string;
-  company: string;
-  location: string;
-  baseLow: number;
-  baseHigh: number;
-  totalLow: number;
-  totalHigh: number;
-  recommendation: string;
-}
-
-export interface Session {
-  id: string;
+  email: string;
+  fullName: string;
   resume: ParsedResume | null;
+  resumeText: string | null;
+  targetTitles: string[];
+  targetLocations: string[];
+  targetIndustries: string[];
   blockedEmployers: string[];
   salaryFloor: number;
-  preferences: Record<string, string>;
-  createdAt: string;
+  jobType: string;
+  isActive: boolean;
+  onboarded: boolean;
+  lastDiscoveryAt: string | null;
+}
+
+export interface DashboardStats {
+  totalMatches: number;
+  newMatches: number;
+  outreachSent: number;
+  responses: number;
+  introsMade: number;
 }

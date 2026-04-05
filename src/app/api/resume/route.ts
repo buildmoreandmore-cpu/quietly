@@ -24,9 +24,11 @@ export async function POST(req: NextRequest) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
+    const { extractTextFromPDF } = await import("@/lib/resume");
+    const rawText = await extractTextFromPDF(buffer);
     const resume = await parseResume(buffer);
 
-    return Response.json({ resume });
+    return Response.json({ resume, resumeText: rawText });
   } catch (error) {
     console.error("Resume parse error:", error);
     const message = error instanceof Error ? error.message : "Failed to parse resume";

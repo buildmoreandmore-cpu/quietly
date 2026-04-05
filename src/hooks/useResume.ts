@@ -35,6 +35,7 @@ export function useResume() {
           if (user) {
             await supabase.from("profiles").update({
               resume: data.resume,
+              resume_text: data.resumeText || null,
               updated_at: new Date().toISOString(),
             }).eq("id", user.id);
           }
