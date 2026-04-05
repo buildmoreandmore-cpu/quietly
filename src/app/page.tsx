@@ -68,9 +68,9 @@ export default function LandingPage() {
               {/* Left: copy */}
               <div className="flex-1 text-center lg:text-left max-w-2xl">
                 <h1 className="animate-fade-up font-serif text-5xl sm:text-6xl lg:text-7xl tracking-tight mb-8 leading-[1.1] text-foreground">
-                  Stop applying.
+                  Start applying
                   <br />
-                  <span className="italic text-accent">Start getting found.</span>
+                  <span className="italic text-accent">before it&apos;s too late.</span>
                 </h1>
 
                 <p className="animate-fade-up delay-100 text-lg text-muted mb-4 max-w-lg mx-auto lg:mx-0 leading-relaxed">

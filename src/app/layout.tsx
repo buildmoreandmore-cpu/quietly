@@ -10,7 +10,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Quietly — Your Career on Autopilot",
+  title: "Quietly — Start Applying Before It's Too Late",
   description:
     "An autopilot recruiting agency that works for you. Join the pool, stay invisible, and get notified when hiring managers want to talk.",
 };
