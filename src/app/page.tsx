@@ -60,11 +60,6 @@ export default function LandingPage() {
           <div className="hero-glow -top-60 left-1/2 -translate-x-1/2 w-[900px] h-[600px] opacity-60" />
 
           <div className="max-w-4xl mx-auto text-center relative z-10">
-            <div className="animate-fade-up inline-flex items-center gap-2 text-xs bg-accent/8 text-accent border border-accent/15 px-4 py-2 rounded-full mb-10 font-semibold">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              Autopilot Recruiting Agency
-            </div>
-
             <h1 className="animate-fade-up delay-100 text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 leading-[1.05] text-foreground">
               Stop applying.
               <br />
@@ -124,25 +119,25 @@ export default function LandingPage() {
             </h2>
             <div className="space-y-5 text-base sm:text-lg text-muted leading-relaxed">
               <p className="animate-fade-up delay-100">
-                The job market is broken in a specific way: the people who are best at
-                their jobs are the worst at looking for new ones. They&apos;re too busy
-                shipping to update their LinkedIn. Too focused to scroll job boards at
-                midnight. Too good at what they do to waste hours on applications that
-                go nowhere.
+                One week you&apos;re heads-down shipping. The next week, thousands of
+                people at Oracle are told their roles no longer exist. Entire teams
+                at Google, Meta, Stripe — gone in a single email. It doesn&apos;t matter
+                how good you are. The ground shifts fast and it doesn&apos;t send a warning.
               </p>
               <p className="animate-fade-up delay-200">
-                Meanwhile, recruiters are incentivized by the companies writing the checks —
-                not by the people doing the work. The entire system is pointed the wrong
-                direction.
+                The people who land on their feet aren&apos;t the ones who panic-apply
+                to 200 jobs the day after. They&apos;re the ones who were already in motion —
+                quietly, invisibly, with conversations already warm before the news hit.
               </p>
               <p className="animate-fade-up delay-300 text-foreground font-semibold">
-                Quietly flips it. We work for you. We scan every night, write personalized
-                outreach on your behalf, and only interrupt your life when a hiring
-                manager actually wants to talk. You stay invisible the entire time.
+                That&apos;s what Quietly does. We keep you in motion while you focus on
+                your work. Scanning roles every night, reaching out to hiring managers
+                on your behalf, and only interrupting your life when someone actually
+                wants to talk. Your employer never knows. You stay invisible the entire time.
               </p>
               <p className="animate-fade-up delay-400 text-sm text-muted/70">
-                This isn&apos;t a job board. It&apos;s not a marketplace. It&apos;s a recruiting agency
-                that runs on autopilot — and it works for the candidate, not the company.
+                This isn&apos;t about looking for a job. It&apos;s about never being caught
+                standing still when the ground moves.
               </p>
             </div>
           </div>
