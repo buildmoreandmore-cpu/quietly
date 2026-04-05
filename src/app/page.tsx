@@ -22,83 +22,6 @@ function ArrowRightIcon() {
   );
 }
 
-/* ── Feature data ──────────────────────────────────────────── */
-
-const features = [
-  {
-    icon: (
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4}>
-        <path d="M12 2a8 8 0 00-8 8v12l3-3 2 2 3-3 3 3 2-2 3 3V10a8 8 0 00-8-8z" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none" />
-        <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-    title: "Completely invisible",
-    desc: "Your name never appears on any job board. No one knows you're looking until you decide they should.",
-    gradient: "from-indigo-100 to-purple-100",
-    iconColor: "text-indigo-600",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" />
-        <path d="M12 2v4" /><path d="M12 18v4" /><path d="M2 12h4" /><path d="M18 12h4" />
-      </svg>
-    ),
-    title: "Scanned nightly",
-    desc: "Every night, we scan thousands of live listings. Only roles at 75%+ match reach your dashboard.",
-    gradient: "from-blue-100 to-cyan-100",
-    iconColor: "text-blue-600",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 2L11 13" /><path d="M22 2L15 22l-4-9-9-4 20-7z" />
-      </svg>
-    ),
-    title: "Outreach on autopilot",
-    desc: "We craft personalized messages to hiring managers. You only engage when someone actually responds.",
-    gradient: "from-violet-100 to-fuchsia-100",
-    iconColor: "text-violet-600",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 01-3.46 0" />
-        <circle cx="18" cy="4" r="3" fill="#6366f1" stroke="none" />
-      </svg>
-    ),
-    title: "Pinged when it matters",
-    desc: "The moment a hiring manager responds, you get notified. You decide the next move — no pressure.",
-    gradient: "from-rose-100 to-orange-100",
-    iconColor: "text-rose-600",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" />
-        <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-    title: "Precision, not spam",
-    desc: "We don't blast 500 applications. One strong outreach beats a hundred generic ones.",
-    gradient: "from-emerald-100 to-teal-100",
-    iconColor: "text-emerald-600",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0110 0v4" />
-        <circle cx="12" cy="16" r="1" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-    title: "Your data, your rules",
-    desc: "Block employers. Set a salary floor. Pause anytime. We never share without explicit consent.",
-    gradient: "from-amber-100 to-yellow-100",
-    iconColor: "text-amber-600",
-  },
-];
-
 /* ── Page ───────────────────────────────────────────────────── */
 
 export default function LandingPage() {
@@ -209,124 +132,106 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── Features ─────────────────────────────────── */}
-        <section className="px-6 py-28 bg-surface/50">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-foreground mb-4">
-                Recruiting that runs
-                <br />
-                <span className="gradient-text">while you sleep</span>
-              </h2>
-              <p className="text-muted max-w-lg mx-auto text-lg">
-                Upload once. We handle discovery, outreach, and follow-up — every single night.
+        {/* ── The Bet (founder voice, replaces fake testimonials) */}
+        <section className="px-6 py-24 border-y border-border">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-8 animate-fade-up">
+              Why this exists
+            </h2>
+            <div className="space-y-5 text-base sm:text-lg text-muted leading-relaxed">
+              <p className="animate-fade-up delay-100">
+                The job market is broken in a specific way: the people who are best at
+                their jobs are the worst at looking for new ones. They&apos;re too busy
+                shipping to update their LinkedIn. Too focused to scroll job boards at
+                midnight. Too good at what they do to waste hours on applications that
+                go nowhere.
+              </p>
+              <p className="animate-fade-up delay-200">
+                Meanwhile, recruiters are incentivized by the companies writing the checks —
+                not by the people doing the work. The entire system is pointed the wrong
+                direction.
+              </p>
+              <p className="animate-fade-up delay-300 text-foreground font-semibold">
+                Quietly flips it. We work for you. We scan every night, write personalized
+                outreach on your behalf, and only interrupt your life when a hiring
+                manager actually wants to talk. You stay invisible the entire time.
+              </p>
+              <p className="animate-fade-up delay-400 text-sm text-muted/70">
+                This isn&apos;t a job board. It&apos;s not a marketplace. It&apos;s a recruiting agency
+                that runs on autopilot — and it works for the candidate, not the company.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {features.map((f) => (
-                <div
-                  key={f.title}
-                  className="bg-white border border-border rounded-2xl p-7 hover:border-accent/30 hover:shadow-md transition-all group hover:-translate-y-1"
-                >
-                  <div className={`w-12 h-12 bg-gradient-to-br ${f.gradient} rounded-xl flex items-center justify-center mb-5 ${f.iconColor} group-hover:scale-110 transition-transform`}>
-                    {f.icon}
-                  </div>
-                  <h3 className="text-base font-bold text-foreground mb-2">
-                    {f.title}
-                  </h3>
-                  <p className="text-sm text-muted leading-relaxed">
-                    {f.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
-        {/* ── Social Proof ─────────────────────────────── */}
-        <section className="px-6 py-24">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-12">
-              Built for people who are{" "}
-              <span className="gradient-text">too busy to job hunt</span>
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {[
-                {
-                  quote: "I was passively looking for 6 months. Quietly got me 3 intros in my first week.",
-                  name: "Senior Engineer",
-                  role: "FAANG to Series B startup",
-                },
-                {
-                  quote: "I didn't even have to update my LinkedIn. Just uploaded my resume and forgot about it.",
-                  name: "Product Manager",
-                  role: "Stealth match in 4 days",
-                },
-                {
-                  quote: "The fact that I'm invisible is everything. My current employer has no idea.",
-                  name: "VP of Engineering",
-                  role: "Exploring quietly",
-                },
-              ].map((t) => (
-                <div
-                  key={t.name}
-                  className="bg-white border border-border rounded-2xl p-6 text-left hover:border-accent/20 hover:shadow-sm transition-all"
-                >
-                  <p className="text-sm text-foreground/80 leading-relaxed mb-4 italic">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <div>
-                    <div className="text-sm font-bold text-foreground">{t.name}</div>
-                    <div className="text-xs text-muted">{t.role}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Pricing ──────────────────────────────────── */}
+        {/* ── What You Stop Doing (pricing as contrast) ─ */}
         <section className="px-6 py-28 bg-surface/50">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-5xl font-extrabold mb-4 text-foreground">
-                Simple pricing.{" "}
-                <span className="gradient-text">No surprises.</span>
+                What <span className="gradient-text">$20/mo</span> replaces
               </h2>
-              <p className="text-muted text-lg max-w-md mx-auto">
-                One plan. Everything included. Cancel anytime.
+              <p className="text-muted text-lg max-w-lg mx-auto">
+                This is what your week used to look like. And what it looks like now.
               </p>
             </div>
 
-            <div className="max-w-md mx-auto bg-white border-2 border-accent/20 rounded-3xl p-8 shadow-lg shadow-accent/5 hover:shadow-xl hover:shadow-accent/10 transition-all">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 text-xs bg-accent/8 text-accent px-3 py-1.5 rounded-full mb-4 font-semibold">
-                  Most popular
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto mb-16">
+              {/* Before column */}
+              <div className="bg-white border border-border rounded-2xl p-7">
+                <div className="text-xs font-bold text-red-500/80 uppercase tracking-wider mb-5">Before Quietly</div>
+                <div className="space-y-4">
+                  {[
+                    "Scrolling job boards after work",
+                    "Tailoring cover letters nobody reads",
+                    "Refreshing your inbox for recruiter replies",
+                    "Updating LinkedIn to \"signal\" availability",
+                    "Taking calls from recruiters pitching bad fits",
+                    "Wondering if your current boss noticed",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <svg className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
+                      <span className="text-sm text-muted">{item}</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="flex items-baseline justify-center gap-1 mb-2">
-                  <span className="text-5xl font-extrabold text-foreground">$20</span>
-                  <span className="text-muted text-lg">/mo</span>
-                </div>
-                <p className="text-sm text-muted">Cancel anytime. No contracts.</p>
               </div>
 
-              <div className="space-y-3 mb-8">
-                {[
-                  "Nightly job scanning across all major boards",
-                  "Personalized outreach to hiring managers",
-                  "Notifications when someone responds",
-                  "Block employers, set salary floors",
-                  "Full dashboard with match grades",
-                  "100% invisible — always",
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-3">
-                    <svg className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M20 6L9 17l-5-5" />
-                    </svg>
-                    <span className="text-sm text-foreground">{item}</span>
-                  </div>
-                ))}
+              {/* After column */}
+              <div className="bg-white border-2 border-accent/20 rounded-2xl p-7 shadow-md shadow-accent/5">
+                <div className="text-xs font-bold text-accent uppercase tracking-wider mb-5">With Quietly</div>
+                <div className="space-y-4">
+                  {[
+                    "You upload your resume once",
+                    "We scan thousands of roles every night",
+                    "Personalized outreach goes out anonymously",
+                    "You stay 100% invisible the entire time",
+                    "You only hear from us when someone responds",
+                    "You decide if you want the intro — or pass",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <svg className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      <span className="text-sm text-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
+            </div>
+
+            {/* Price anchor */}
+            <div className="max-w-md mx-auto text-center bg-white border-2 border-accent/20 rounded-3xl p-8 shadow-lg shadow-accent/5">
+              <div className="flex items-baseline justify-center gap-1 mb-2">
+                <span className="text-5xl font-extrabold text-foreground">$20</span>
+                <span className="text-muted text-lg">/mo</span>
+              </div>
+              <p className="text-sm text-muted mb-6">
+                Cancel anytime. No contracts. No placement fees.
+              </p>
 
               <Link
                 href="/auth/signup"
@@ -337,7 +242,7 @@ export default function LandingPage() {
               </Link>
 
               <p className="text-xs text-muted text-center mt-4">
-                Set up in 2 minutes. First matches within 24 hours.
+                2 minutes to set up. First matches within 24 hours.
               </p>
             </div>
           </div>
@@ -376,7 +281,7 @@ export default function LandingPage() {
             <span className="text-sm font-bold text-foreground">Quietly</span>
           </div>
           <p className="text-xs text-muted">
-            Your career on autopilot. No data shared. Ever.
+            Built in Atlanta by Martin Francis.
           </p>
           <div className="flex gap-6 text-xs text-muted">
             <Link href="/auth/login" className="hover:text-foreground transition-colors">
