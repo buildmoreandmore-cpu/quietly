@@ -142,10 +142,7 @@ export default function LandingPage() {
             <div className="space-y-6 text-base sm:text-lg text-muted leading-relaxed">
               <ScrollReveal delay={100}>
                 <p>
-                  One week you&apos;re heads-down shipping. The next week, thousands of
-                  people at Oracle are told their roles no longer exist. Entire teams
-                  at Google, Meta, Stripe — gone in a single email. It doesn&apos;t matter
-                  how good you are. The ground shifts fast and it doesn&apos;t send a warning.
+                  The ground shifts fast and it doesn&apos;t send a warning.
                 </p>
               </ScrollReveal>
 
@@ -173,6 +170,14 @@ export default function LandingPage() {
                   your work. Scanning roles every night, reaching out to hiring managers
                   on your behalf, and only interrupting your life when someone actually
                   wants to talk. Your employer never knows. You stay invisible the entire time.
+                </p>
+              </ScrollReveal>
+
+              <ScrollReveal delay={300}>
+                <p>
+                  No resumes blasted into the void. No awkward LinkedIn updates. No
+                  recruiter calls during lunch. Just a system running in the background,
+                  making sure that when opportunity knocks, it&apos;s already knocking for you.
                 </p>
               </ScrollReveal>
             </div>
