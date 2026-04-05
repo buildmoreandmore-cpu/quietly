@@ -13,6 +13,7 @@ const config: Config = {
         foreground: "var(--foreground)",
         accent: "var(--accent)",
         "accent-dim": "var(--accent-dim)",
+        "accent-bright": "var(--accent-bright)",
         surface: "var(--surface)",
         "surface-hover": "var(--surface-hover)",
         border: "var(--border-color)",
