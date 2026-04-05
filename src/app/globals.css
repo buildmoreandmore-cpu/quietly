@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0f;
-  --foreground: #f0f0f5;
-  --accent: #818cf8;
-  --accent-dim: #6366f1;
-  --accent-bright: #a5b4fc;
-  --surface: #12121a;
-  --surface-hover: #1a1a25;
-  --border-color: #1e1e2e;
+  --background: #ffffff;
+  --foreground: #0f0f1a;
+  --accent: #6366f1;
+  --accent-dim: #4f46e5;
+  --accent-bright: #818cf8;
+  --surface: #f8f8fb;
+  --surface-hover: #f0f0f5;
+  --border-color: #e4e4ec;
   --muted: #6b6b80;
-  --glow: rgba(129, 140, 248, 0.15);
+  --glow: rgba(99, 102, 241, 0.08);
 }
 
 body {
@@ -61,11 +61,6 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-@keyframes count-up {
-  from { opacity: 0; transform: translateY(8px) scale(0.95); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
 @keyframes shimmer {
   0%   { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
@@ -104,7 +99,7 @@ body {
 .delay-600 { animation-delay: 600ms; }
 .delay-700 { animation-delay: 700ms; }
 
-/* ── Glow effects ──────────────────────────── */
+/* ── Glow effects (light mode) ─────────────── */
 
 .hero-glow {
   position: absolute;
@@ -136,24 +131,18 @@ body {
 }
 
 .card-glow:hover::before {
-  opacity: 1;
+  opacity: 0.5;
 }
 
 /* ── Gradient text ─────────────────────────── */
 
 .gradient-text {
-  background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #818cf8 100%);
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #6366f1 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradient-shift 4s ease infinite;
-}
-
-/* ── Stat counter ──────────────────────────── */
-
-.stat-number {
-  animation: count-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ── Shimmer button ────────────────────────── */
@@ -167,32 +156,34 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
   animation: shimmer 3s ease-in-out infinite;
 }
 
-/* ── Noise texture ─────────────────────────── */
+/* ── Dot grid bg ───────────────────────────── */
 
-.noise-bg {
-  position: relative;
+.dot-grid-bg {
+  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-.noise-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  pointer-events: none;
+/* ── Demo screen (dark inset) ──────────────── */
+
+.demo-screen {
+  background: #0d0d14;
+  color: #f0f0f5;
 }
 
-/* ── Grid pattern ──────────────────────────── */
+.demo-screen .demo-muted {
+  color: #6b6b80;
+}
 
-.grid-bg {
-  background-image:
-    linear-gradient(rgba(129, 140, 248, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(129, 140, 248, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+.demo-screen .demo-border {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.demo-screen .demo-surface {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 /* ── Markdown (dashboard) ──────────────────── */
