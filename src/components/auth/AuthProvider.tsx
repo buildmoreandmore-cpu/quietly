@@ -29,6 +29,8 @@ export default function AuthProvider({ children }: Props) {
     setMatches,
     setOutreach,
     setStats,
+    setSubscriptionStatus,
+    setStripeCustomerId,
   } = useQuietlyStore();
 
   useEffect(() => {
@@ -79,6 +81,8 @@ export default function AuthProvider({ children }: Props) {
         if (profile.job_type) setJobType(profile.job_type);
         setIsActive(profile.is_active ?? true);
         setShowOnboarding(!profile.onboarded);
+        setSubscriptionStatus(profile.subscription_status || "none");
+        if (profile.stripe_customer_id) setStripeCustomerId(profile.stripe_customer_id);
       }
 
       // Load matches

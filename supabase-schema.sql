@@ -17,6 +17,9 @@ create table if not exists profiles (
   is_active boolean default true,        -- Active in the pool
   onboarded boolean default false,
   last_discovery_at timestamptz,         -- Last time cron ran for this user
+  stripe_customer_id text,               -- Stripe customer ID
+  stripe_subscription_id text,           -- Stripe subscription ID
+  subscription_status text default 'none' check (subscription_status in ('none', 'active', 'trialing', 'past_due', 'canceled', 'unpaid')),
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );

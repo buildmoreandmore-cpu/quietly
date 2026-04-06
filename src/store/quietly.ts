@@ -1,7 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-import { ParsedResume, Match, OutreachEntry, DashboardStats } from "@/lib/types";
+import { ParsedResume, Match, OutreachEntry, DashboardStats, SubscriptionStatus } from "@/lib/types";
 
 interface QuietlyState {
   // Profile
@@ -41,6 +41,12 @@ interface QuietlyState {
   // Stats
   stats: DashboardStats;
   setStats: (stats: DashboardStats) => void;
+
+  // Subscription
+  subscriptionStatus: SubscriptionStatus;
+  setSubscriptionStatus: (s: SubscriptionStatus) => void;
+  stripeCustomerId: string | null;
+  setStripeCustomerId: (id: string | null) => void;
 
   // UI
   showOnboarding: boolean;
@@ -83,6 +89,11 @@ export const useQuietlyStore = create<QuietlyState>((set) => ({
 
   stats: { totalMatches: 0, newMatches: 0, outreachSent: 0, responses: 0, introsMade: 0 },
   setStats: (stats) => set({ stats }),
+
+  subscriptionStatus: "none",
+  setSubscriptionStatus: (subscriptionStatus) => set({ subscriptionStatus }),
+  stripeCustomerId: null,
+  setStripeCustomerId: (stripeCustomerId) => set({ stripeCustomerId }),
 
   showOnboarding: true,
   setShowOnboarding: (showOnboarding) => set({ showOnboarding }),

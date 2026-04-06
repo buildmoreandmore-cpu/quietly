@@ -71,6 +71,14 @@ export interface OutreachEntry {
   createdAt: string;
 }
 
+export type SubscriptionStatus =
+  | "none"
+  | "active"
+  | "trialing"
+  | "past_due"
+  | "canceled"
+  | "unpaid";
+
 export interface CandidateProfile {
   id: string;
   email: string;
@@ -86,6 +94,8 @@ export interface CandidateProfile {
   isActive: boolean;
   onboarded: boolean;
   lastDiscoveryAt: string | null;
+  subscriptionStatus: SubscriptionStatus;
+  stripeCustomerId: string | null;
 }
 
 export interface DashboardStats {

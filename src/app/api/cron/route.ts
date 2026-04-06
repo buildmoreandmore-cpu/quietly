@@ -1,29 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSupabase } from "@/lib/supabase";
-import { discoverJobs, generateOutreach } from "@/lib/anthropic";
+import { generateOutreach } from "@/lib/anthropic";
+import { searchJobs } from "@/lib/jsearch";
+import { scoreJobs } from "@/lib/scoring";
+// import { sendEmail, outreachEmail } from "@/lib/email";
+import { formatSalaryRange, formatLocation } from "@/lib/jsearch";
 import type { ParsedResume } from "@/lib/types";
 
-// POST /api/cron — nightly discovery + outreach generation
-// Protected by CRON_SECRET header
-export async function POST(request: NextRequest) {
-  const secret = request.headers.get("x-cron-secret");
-  if (secret !== process.env.CRON_SECRET) {
+export const maxDuration = 300;
+
+// GET /api/cron — nightly discovery + outreach
+// Vercel Cron calls GET by default
+export async function GET(request: NextRequest) {
+  // Vercel Cron sets this header automatically
+  const authHeader = request.headers.get("authorization");
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const supabase = getServerSupabase();
 
-  // Pull all active, onboarded candidates with resumes
+  // Pull all active, onboarded, subscribed candidates with resumes
   const { data: candidates, error: fetchErr } = await supabase
     .from("profiles")
     .select("*")
     .eq("is_active", true)
     .eq("onboarded", true)
-    .not("resume", "is", null);
+    .not("resume", "is", null)
+    .in("subscription_status", ["active", "trialing"]);
 
   if (fetchErr) {
     console.error("Failed to fetch candidates:", fetchErr);
-    return NextResponse.json({ error: "Failed to fetch candidates" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch candidates" },
+      { status: 500 }
+    );
   }
 
   if (!candidates?.length) {
@@ -36,37 +47,55 @@ export async function POST(request: NextRequest) {
   for (const candidate of candidates) {
     try {
       const resume = candidate.resume as ParsedResume;
-
-      // Build resume summary for the prompt
       const resumeSummary = candidate.resume_text || buildResumeSummary(resume);
+      const titles = (candidate.target_titles as string[]) || [];
+      const locations = (candidate.target_locations as string[]) || [];
 
-      // Run discovery
-      const jobs = await discoverJobs(
+      // Search real jobs via JSearch
+      const queries = titles.length
+        ? titles
+        : [resume.experience?.[0]?.title || resume.summary?.split(" ").slice(0, 4).join(" ") || ""];
+
+      const allJobs = [];
+      for (const title of queries.slice(0, 3)) {
+        for (const location of (locations.length ? locations : ["Remote"]).slice(0, 2)) {
+          const jobs = await searchJobs(title, location);
+          allJobs.push(...jobs);
+        }
+      }
+
+      // Deduplicate by job_id
+      const uniqueJobs = Array.from(
+        new Map(allJobs.map((j) => [j.job_id, j])).values()
+      );
+
+      if (!uniqueJobs.length) continue;
+
+      // Score with Claude Haiku
+      const scored = await scoreJobs(
         resumeSummary,
-        candidate.target_titles || [],
-        candidate.target_locations || [],
-        candidate.salary_floor || 0,
-        candidate.blocked_employers || []
+        uniqueJobs,
+        candidate.salary_floor || 0
       );
 
       // Insert matches
-      for (const job of jobs) {
+      for (const { job, matchScore, matchGrade, whyItFits, oneConcern } of scored) {
         const { data: match, error: insertErr } = await supabase
           .from("matches")
           .insert({
             user_id: candidate.id,
-            title: job.title,
-            company: job.company,
-            location: job.location,
-            job_type: job.job_type,
-            salary_range: job.salary_range,
-            url: job.url,
-            posted_date: job.posted_date,
-            match_score: job.match_score,
-            match_grade: job.match_grade,
-            why_it_fits: job.why_it_fits,
-            one_concern: job.one_concern,
-            source: "discovery",
+            title: job.job_title,
+            company: job.employer_name,
+            location: formatLocation(job),
+            job_type: job.job_employment_type || "FULLTIME",
+            salary_range: formatSalaryRange(job),
+            url: job.job_apply_link,
+            posted_date: job.job_posted_at_datetime_utc,
+            match_score: matchScore,
+            match_grade: matchGrade,
+            why_it_fits: whyItFits,
+            one_concern: oneConcern,
+            source: "jsearch",
             status: "new",
           })
           .select()
@@ -79,27 +108,42 @@ export async function POST(request: NextRequest) {
 
         totalMatches++;
 
-        // Generate outreach for 75+ matches
-        if (job.match_score >= 75) {
+        // Generate + send outreach for 75+ matches
+        if (matchScore >= 75) {
           try {
             const outreach = await generateOutreach(
               resumeSummary,
-              job.title,
-              job.company,
-              job.why_it_fits,
-              job.match_score,
+              job.job_title,
+              job.employer_name,
+              job.job_description?.slice(0, 1000) || whyItFits,
+              matchScore,
               "email"
             );
 
-            await supabase.from("outreach_log").insert({
-              match_id: match.id,
-              user_id: candidate.id,
-              channel: "email",
-              variant: outreach.variant,
-              subject: outreach.subject,
-              message_body: outreach.message,
-              status: "draft",
-            });
+            await supabase
+              .from("outreach_log")
+              .insert({
+                match_id: match.id,
+                user_id: candidate.id,
+                channel: "email",
+                variant: outreach.variant,
+                subject: outreach.subject,
+                message_body: outreach.message,
+                status: "draft",
+              });
+
+            // Email sending — uncomment when email provider is configured
+            // and you have a way to get hiring manager emails (enrichment/Composio)
+            // if (outreachRow) {
+            //   const replyTo = `reply+${outreachRow.id}@quietly.app`;
+            //   const msg = outreachEmail(outreach.subject || job.job_title, outreach.message, replyTo);
+            //   msg.to = hiringManagerEmail;
+            //   const result = await sendEmail(msg);
+            //   if (result.success) {
+            //     await supabase.from("outreach_log").update({ status: "sent", sent_at: new Date().toISOString() }).eq("id", outreachRow.id);
+            //     await supabase.from("matches").update({ status: "outreach_sent" }).eq("id", match.id);
+            //   }
+            // }
 
             totalOutreach++;
           } catch (outreachErr) {
@@ -113,7 +157,6 @@ export async function POST(request: NextRequest) {
         .from("profiles")
         .update({ last_discovery_at: new Date().toISOString() })
         .eq("id", candidate.id);
-
     } catch (err) {
       console.error(`Discovery failed for candidate ${candidate.id}:`, err);
     }
@@ -125,6 +168,24 @@ export async function POST(request: NextRequest) {
     matches: totalMatches,
     outreach: totalOutreach,
   });
+}
+
+// Keep POST for backward compat / manual triggers
+export async function POST(request: NextRequest) {
+  const secret = request.headers.get("x-cron-secret");
+  if (secret !== process.env.CRON_SECRET) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Forward to GET handler with proper auth
+  const url = new URL(request.url);
+  const getRequest = new NextRequest(url, {
+    method: "GET",
+    headers: new Headers({
+      authorization: `Bearer ${process.env.CRON_SECRET}`,
+    }),
+  });
+  return GET(getRequest);
 }
 
 function buildResumeSummary(resume: ParsedResume): string {
