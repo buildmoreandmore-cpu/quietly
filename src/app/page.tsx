@@ -283,6 +283,9 @@ export default function LandingPage() {
             <Link href="/auth/signup" className="hover:text-foreground transition-colors">
               Join
             </Link>
+            <Link href="/admin" className="hover:text-foreground transition-colors">
+              Admin
+            </Link>
           </div>
         </div>
       </footer>
