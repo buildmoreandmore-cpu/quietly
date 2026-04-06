@@ -137,11 +137,12 @@ export default function LandingPage() {
             <ScrollReveal>
               <div className="text-center mb-16">
                 <h2 className="font-serif text-3xl sm:text-5xl text-foreground mb-4">
-                  Your resume, <span className="italic text-accent">sharpened</span> — not inflated.
+                  Cleaner words. <span className="italic text-accent">Zero fluff.</span>
                 </h2>
                 <p className="text-muted max-w-lg mx-auto text-lg">
-                  Two AI models work together. One rewrites for clarity.
-                  The other catches the BS.
+                  Your resume gets rewritten for clarity, then reviewed for
+                  honesty. No buzzwords. No inflated titles. Just what you
+                  actually did, said better.
                 </p>
               </div>
             </ScrollReveal>

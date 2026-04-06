@@ -233,7 +233,7 @@ export default function ResumeRefreshDemo() {
             <div className="w-2.5 h-2.5 rounded-full bg-stone-200" />
           </div>
           <span className="text-[11px] text-stone-400 font-medium">
-            Resume Refresher
+            Resume Review
           </span>
         </div>
         <div className="flex items-center gap-2">
