@@ -35,7 +35,8 @@ interface Overview {
 }
 
 export default function AdminPage() {
-  const [secret, setSecret] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [authed, setAuthed] = useState(false);
   const [users, setUsers] = useState<UserRow[]>([]);
   const [overview, setOverview] = useState<Overview | null>(null);
@@ -43,13 +44,15 @@ export default function AdminPage() {
   const [error, setError] = useState("");
   const [expandedUser, setExpandedUser] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | "active" | "subscribed" | "no-resume">("all");
+  const [credentials, setCredentials] = useState("");
 
-  const fetchData = async () => {
+  const fetchData = async (creds?: string) => {
+    const auth = creds || credentials;
     setLoading(true);
     setError("");
     try {
       const res = await fetch("/api/admin", {
-        headers: { "x-admin-secret": secret },
+        headers: { Authorization: `Basic ${auth}` },
       });
       if (!res.ok) throw new Error("Unauthorized");
       const data = await res.json();
@@ -57,10 +60,16 @@ export default function AdminPage() {
       setOverview(data.overview);
       setAuthed(true);
     } catch {
-      setError("Invalid admin secret");
+      setError("Invalid username or password");
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogin = () => {
+    const encoded = btoa(`${username}:${password}`);
+    setCredentials(encoded);
+    fetchData(encoded);
   };
 
   // Auto-refresh every 30s
@@ -93,25 +102,41 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-4">
         <div className="w-full max-w-xs">
-          <h1 className="text-lg font-semibold text-foreground mb-4 text-center">Admin</h1>
+          <div className="text-center mb-6">
+            <div className="w-10 h-10 bg-foreground rounded-xl flex items-center justify-center mx-auto mb-3">
+              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+            </div>
+            <h1 className="text-lg font-semibold text-foreground">Admin</h1>
+          </div>
           {error && (
             <p className="text-red-500 text-sm mb-3 text-center">{error}</p>
           )}
-          <input
-            type="password"
-            value={secret}
-            onChange={(e) => setSecret(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && fetchData()}
-            placeholder="Admin secret"
-            className="w-full bg-surface border border-border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent/50 text-foreground mb-3"
-          />
-          <button
-            onClick={fetchData}
-            disabled={loading}
-            className="w-full bg-foreground text-white py-2.5 rounded-lg text-sm font-medium hover:bg-foreground/80 transition-colors disabled:opacity-50"
-          >
-            {loading ? "Loading..." : "Enter"}
-          </button>
+          <div className="space-y-3">
+            <input
+              type="email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+              className="w-full bg-surface border border-border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent/50 text-foreground"
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+              placeholder="Password"
+              className="w-full bg-surface border border-border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent/50 text-foreground"
+            />
+            <button
+              onClick={handleLogin}
+              disabled={loading}
+              className="w-full bg-foreground text-white py-2.5 rounded-lg text-sm font-medium hover:bg-foreground/80 transition-colors disabled:opacity-50"
+            >
+              {loading ? "Loading..." : "Sign in"}
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -129,7 +154,7 @@ export default function AdminPage() {
             <span className="text-xs text-muted bg-surface px-2 py-0.5 rounded-full">Admin</span>
           </div>
           <button
-            onClick={fetchData}
+            onClick={() => fetchData()}
             className="text-xs text-muted hover:text-foreground transition-colors"
           >
             Refresh

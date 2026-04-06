@@ -2,10 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSupabase } from "@/lib/supabase";
 
 // GET /api/admin — fetch all users + stats
-// Protected by admin secret
+// Protected by admin credentials
 export async function GET(request: NextRequest) {
-  const secret = request.headers.get("x-admin-secret");
-  if (secret !== process.env.ADMIN_SECRET) {
+  const authHeader = request.headers.get("authorization");
+  if (!authHeader?.startsWith("Basic ")) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const decoded = Buffer.from(authHeader.slice(6), "base64").toString();
+  const [username, password] = decoded.split(":");
+
+  if (
+    username !== process.env.ADMIN_USERNAME ||
+    password !== process.env.ADMIN_PASSWORD
+  ) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
