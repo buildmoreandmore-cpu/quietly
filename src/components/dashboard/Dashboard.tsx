@@ -1,19 +1,40 @@
 "use client";
 
+import { useState } from "react";
 import { useQuietlyStore } from "@/store/quietly";
 import { signOut } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import StatsBar from "./StatsBar";
 import MatchList from "./MatchList";
 import ProfileCard from "./ProfileCard";
+import ResumeEditor from "./ResumeEditor";
+import { ParsedResume } from "@/lib/types";
+import { createSupabaseBrowser } from "@/lib/supabase";
 
 export default function Dashboard() {
-  const { fullName } = useQuietlyStore();
+  const { fullName, resume, setResume } = useQuietlyStore();
+  const [editorOpen, setEditorOpen] = useState(false);
   const router = useRouter();
 
   const handleSignOut = async () => {
     await signOut();
     router.push("/");
+  };
+
+  const handleSaveResume = async (updated: ParsedResume) => {
+    setResume(updated);
+    try {
+      const supabase = createSupabaseBrowser();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        await supabase.from("profiles").update({
+          resume: updated,
+          updated_at: new Date().toISOString(),
+        }).eq("id", user.id);
+      }
+    } catch (err) {
+      console.error("Failed to save resume:", err);
+    }
   };
 
   return (
@@ -55,10 +76,19 @@ export default function Dashboard() {
             <MatchList />
           </div>
           <div>
-            <ProfileCard />
+            <ProfileCard onEditResume={() => setEditorOpen(true)} />
           </div>
         </div>
       </main>
+
+      {/* Resume Editor slide-over */}
+      {editorOpen && resume && (
+        <ResumeEditor
+          resume={resume}
+          onClose={() => setEditorOpen(false)}
+          onSave={handleSaveResume}
+        />
+      )}
     </div>
   );
 }

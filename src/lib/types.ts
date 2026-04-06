@@ -95,3 +95,24 @@ export interface DashboardStats {
   responses: number;
   introsMade: number;
 }
+
+// --- Resume Refresher ---
+
+export interface ReviewFlag {
+  section: string;
+  original: string;
+  issue: string;
+  suggestion: string;
+}
+
+export interface ReviewFeedback {
+  overallVerdict: "approved" | "needs_revision";
+  flags: ReviewFlag[];
+  finalResume: ParsedResume;
+}
+
+export interface RefreshResult {
+  rewrittenResume: ParsedResume;
+  reviewFeedback: ReviewFeedback;
+  originalResume: ParsedResume;
+}

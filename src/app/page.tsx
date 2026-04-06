@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ProcessDemo from "@/components/landing/ProcessDemo";
+import ResumeRefreshDemo from "@/components/landing/ResumeRefreshDemo";
 import ScrollReveal from "@/components/landing/ScrollReveal";
 import HeroNotification from "@/components/landing/HeroNotification";
 import Ticker from "@/components/landing/Ticker";
@@ -126,6 +127,26 @@ export default function LandingPage() {
             </ScrollReveal>
             <ScrollReveal delay={150}>
               <ProcessDemo />
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ── Resume Refresher ─────────────────────────── */}
+        <section className="px-6 py-24 sm:py-32 bg-surface">
+          <div className="max-w-4xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <h2 className="font-serif text-3xl sm:text-5xl text-foreground mb-4">
+                  Your resume, <span className="italic text-accent">sharpened</span> — not inflated.
+                </h2>
+                <p className="text-muted max-w-lg mx-auto text-lg">
+                  Two AI models work together. One rewrites for clarity.
+                  The other catches the BS.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={150}>
+              <ResumeRefreshDemo />
             </ScrollReveal>
           </div>
         </section>

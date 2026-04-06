@@ -45,6 +45,43 @@ ${text}`,
   throw new Error("Failed to parse resume");
 }
 
+// --- Resume Rewriting ---
+
+const REWRITE_SYSTEM = `You are a resume editor. Rewrite the candidate's resume for clarity, conciseness, and impact — but NEVER inflate, fabricate, or exaggerate.
+
+STRICT RULES:
+- NEVER add metrics, numbers, or scope that weren't in the original
+- NEVER use these words: spearheaded, leveraged, drove, passionate, seasoned, dynamic, results-driven, cutting-edge, best-in-class, instrumental, pivotal, revolutionized, transformed, orchestrated
+- Use specific verbs: built, wrote, ran, shipped, managed, designed, tested, maintained, analyzed, organized, coordinated, supported
+- Keep the candidate's actual seniority level — don't make a coordinator sound like a director
+- Active voice, short sentences, no filler
+- Preserve all factual details: company names, dates, degrees, certifications
+- If a bullet is already clear and honest, leave it alone
+- Summary should be 2-3 sentences max, factual, no superlatives
+
+Return ONLY valid JSON matching the ParsedResume schema. No markdown, no explanation.`;
+
+export async function rewriteResumeWithClaude(
+  resume: ParsedResume
+): Promise<ParsedResume> {
+  const response = await client.messages.create({
+    model: "claude-sonnet-4-5-20250514",
+    max_tokens: 8192,
+    system: REWRITE_SYSTEM,
+    messages: [
+      {
+        role: "user",
+        content: `Rewrite this resume for clarity without inflating anything:\n\n${JSON.stringify(resume, null, 2)}`,
+      },
+    ],
+  });
+
+  const text =
+    response.content[0].type === "text" ? response.content[0].text : "";
+  const cleaned = text.replace(/```json\n?|\n?```/g, "").trim();
+  return JSON.parse(cleaned);
+}
+
 // --- Job Discovery ---
 
 const DISCOVERY_SYSTEM = `You are a job discovery agent for a recruiting agency. You analyze candidate profiles and find matching job opportunities.

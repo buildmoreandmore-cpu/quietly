@@ -2,7 +2,11 @@
 
 import { useQuietlyStore } from "@/store/quietly";
 
-export default function ProfileCard() {
+interface Props {
+  onEditResume?: () => void;
+}
+
+export default function ProfileCard({ onEditResume }: Props) {
   const {
     resume,
     targetTitles,
@@ -30,7 +34,17 @@ export default function ProfileCard() {
 
       {resume ? (
         <div>
-          <p className="text-sm font-medium text-foreground">{resume.name}</p>
+          <div className="flex items-start justify-between">
+            <p className="text-sm font-medium text-foreground">{resume.name}</p>
+            {onEditResume && (
+              <button
+                onClick={onEditResume}
+                className="text-[10px] text-accent hover:text-accent-dim font-medium"
+              >
+                Edit &amp; refresh
+              </button>
+            )}
+          </div>
           <p className="text-xs text-muted mt-1 line-clamp-2">
             {resume.summary}
           </p>
